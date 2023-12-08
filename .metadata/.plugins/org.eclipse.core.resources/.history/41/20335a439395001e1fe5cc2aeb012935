@@ -1,0 +1,27 @@
+package edu.pnu.servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet("/timestable")
+public class TimesTable extends HttpServlet { // servlet class... 꼭 serial ID 넣어줘야 함
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		System.out.println("구구");
+		res.setContentType("text/html; charset=utf-8");
+		PrintWriter out = res.getWriter();
+		out.println("<h2>제목:h2 구구단</h2>");
+		for (int i = 1; i < 9; i++) {
+			int gugu = 2*i;
+			out.println("<ul>2 * "+i+" = "+gugu+"</ul>");
+		}
+		out.close();
+	}
+}
