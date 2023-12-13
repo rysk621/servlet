@@ -1,0 +1,17 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert Form</title>
+</head>
+<body>
+	<form action="InsertProcess.jsp" method="post">
+	id: <input type="text" name="id" value="id" /><br/>
+	pass: <input type="text" name="pass" value="password" /><br/>
+	name: <input type="text" name="name" value="name" /><br/>
+	<input type="submit" value="join" />
+	</form>
+</body>
+</html>

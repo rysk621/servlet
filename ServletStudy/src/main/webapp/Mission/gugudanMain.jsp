@@ -1,0 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+request.setCharacterEncoding("UTF-8");
+if (request.getParameter("sel").equals("type1")) response.sendRedirect("gugudan1");
+if (request.getParameter("sel").equals("type2")) response.sendRedirect("gugudan2");
+%>
+</body>
+</html>

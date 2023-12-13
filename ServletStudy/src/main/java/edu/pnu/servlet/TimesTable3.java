@@ -18,13 +18,27 @@ public class TimesTable3 extends HttpServlet { // servlet class... 꼭 serial ID
 		res.setContentType("text/html; charset=utf-8");
 		PrintWriter out = res.getWriter();
 		int dan = 3;
+		String sDan = req.getParameter("dan");
+		if (sDan != null) dan = Integer.parseInt(sDan);
 		out.println("<h2>구구단 order by dan(dan = " + dan + ")</h2>");
-		for (int j = 1; j < 10; j++) {
-				for (int i = 2; i < 10; i++) {
-				out.println(i + " * " + j + " = " + j * i);
+		out.println("<table>");
+		String str = "";
+		String[] sList = new String[8];
+		for (int i = 2; i  < 10; i++) {
+			for (int j = 1; j < 10; j++) {
+				str += i + " * " + j + " = " + i*j + "<br />";
 			}
-			out.println("<br>");
+			sList[i-2] = "<td>"+ str + "</td>";
+			str = "";
 		}
+		
+		out.println("<tr>");
+		for (int i = 0; i < sList.length; i++) {
+			out.println(sList[i]);
+			if ((i+1)% dan == 0) out.println("</tr><tr>");
+		}
+		
+		out.println("</tr></table>");
 		out.close();
 	}
 }

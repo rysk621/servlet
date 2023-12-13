@@ -1,0 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<% 
+String sId = request.getParameter("id");
+String sPass = request.getParameter("pass");
+String sName = request.getParameter("name");
+if (sId == null || sPass == null || sName == null){
+	// no input
+}
+
+// insert success
+
+// insert fail
+%>

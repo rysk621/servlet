@@ -19,14 +19,14 @@ public class TimesTable2 extends HttpServlet { // servlet class... 꼭 serial ID
 		PrintWriter out = res.getWriter();
 		String dir = req.getParameter("dir");
 		if (dir == null) {
-			dir = "hor";
+			dir = "ver";
 		}
 		out.println("<h2>구구단 direction (dir=ver, hor)</h2>");
 		if (dir.equals("ver")) {
 			for (int i = 2; i < 10; i++) {
 				out.println("<table><th>" + i + "단</th>");
 				for (int j = 1; j < 10; j++) {
-					out.println("<tr><td>"+i + " * " + j + " = " + j * i + "</td></tr>");
+					out.println("<tr><td>" + i + " * " + j + " = " + i * j + "</td></tr>");
 				}
 				out.println("</table>");
 			}
@@ -34,17 +34,17 @@ public class TimesTable2 extends HttpServlet { // servlet class... 꼭 serial ID
 			out.println("<table>");
 			out.println("<tr>");
 			for (int i = 2; i < 10; i++) {
-				out.println("<td>"+i+"단</td>");
+				out.println("<td>" + i + "단</td>");
 			}
 			out.println("</tr>");
 			for (int j = 1; j < 10; j++) {
 				out.println("<tr>");
 				for (int i = 2; i < 10; i++) {
-					out.println("<td>"+i + " * " + j + " = " + j * i + "</td>");
+					out.println("<td>" + i + " * " + j + " = " + i * j + "</td>");
 				}
 				out.println("</tr>");
 			}
-				out.println("</table>");
+			out.println("</table>");
 		}
 		out.close();
 	}

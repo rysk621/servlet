@@ -1,0 +1,49 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+String sNum1 = request.getParameter("num1");
+String sNum2 = request.getParameter("num2");
+if (sNum1==null || sNum2==null){
+	response.sendRedirect("Eu.jsp");
+	return;
+}
+int num1 = Integer.parseInt(sNum1);
+int num2 = Integer.parseInt(sNum2);
+
+int lcm, gcd;
+
+// 알고리즘 만들기
+int max, min;
+if (num1 > num2){
+	max = num1; min = num2;
+}
+else {
+	max = num2; min = num1;
+}
+
+int rem = max % min;
+int gcdEu(max, min){
+	while (min!=0) {
+		if (rem != 0) {
+			max = min;
+			min = rem;
+		} else {
+			gcd = min;
+		}
+	}
+	return gcd;
+}
+lcm = num1 * num2 / gcd;
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>유클리드 호제법</title>
+</head>
+<body>
+최대공약수: <%= gcd %><br/>
+최소공배수: <%= lcm %><br/>
+<a href="Eu.jsp">홈으로</a>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<%@ page import="java.sql.PreparedStatement" %>
+<%@ page import="common.JDBConnect" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<% 
+String sId = request.getParameter("id");
+String sPass = request.getParameter("pass");
+String sName = request.getParameter("name");
+if (sId == null || sPass == "" || sName == ""){
+	// no input
+	response.sendRedirect("InsertForm.jsp");
+	//request.getRequestDispatcher("InsertFail.jsp").forward(request, response);
+	return;
+}
+//insert success
+JDBConnect jdbc = new JDBConnect();
+String id = sId;
+String pass = sPass;
+String name = sName;
+
+String sql = "insert into member (id, pass, name) values(?, ?, ?)";
+PreparedStatement psmt = jdbc.getCon().prepareStatement(sql);
+psmt.setString(1, id);
+psmt.setString(2, pass);
+psmt.setString(3, name);
+
+int inResult = psmt.executeUpdate();
+out.println(inResult + "행이 입력되었습니다.");
+psmt.close();
+
+// insert fail
+
+%>
