@@ -4,10 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert Success</title>
+<title>Insert title here</title>
 </head>
 <body>
-<span style="font-size:2em;">Insert Success</span><br/>
-<a href="InsertForm.jsp">Home</a>
+
 </body>
 </html>

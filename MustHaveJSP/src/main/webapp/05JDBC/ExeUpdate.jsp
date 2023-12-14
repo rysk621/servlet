@@ -14,7 +14,7 @@
 	<%
 	JDBConnect jdbc = new JDBConnect();
 	
-	String id = "test2";
+	String id = "test1";
 	String pass = "1234";
 	String name = "테스트1회원";
 	
