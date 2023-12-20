@@ -16,7 +16,7 @@ MemberDTO memberDTO = dao.getMemberDTO(userId, userPwd);
 dao.close();
 
 if (memberDTO != null) {
-//	session.setAttribute("UserId", memberDTO.getId());
+	session.setAttribute("UserId", memberDTO.getId());
 	session.setAttribute("UserName", memberDTO.getName());
 	session.setAttribute("member", memberDTO);
 	response.sendRedirect("LoginForm.jsp");

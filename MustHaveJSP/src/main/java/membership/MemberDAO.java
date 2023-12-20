@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import common.JDBConnect;
+import jakarta.servlet.ServletContext;
 
 public class MemberDAO extends JDBConnect {
 //	public static void main(String[] args) {
@@ -15,6 +16,10 @@ public class MemberDAO extends JDBConnect {
 	
 	public MemberDAO(String drv, String url, String id, String pw) {
 		super(drv, url, id, pw);
+	}
+	
+	public MemberDAO(ServletContext application) {
+		super(application);
 	}
 	
 	public MemberDTO getMemberDTO(String uid, String upass) {
