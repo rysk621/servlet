@@ -2,6 +2,7 @@ package model1.board;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
@@ -22,15 +23,25 @@ public class BoardDAO extends JDBConnect {
 		if (map.get("searchWord") != null) {
 			query += " where " + map.get("searchField") + " like '%" + map.get("searchWord") + "%'";
 		}
-		
+		Statement stmt = null;
+		ResultSet rs = null;
 		try {
-			Statement stmt = getCon().createStatement();
-			ResultSet rs = stmt.executeQuery(query);
+			stmt = getCon().createStatement();
+			rs = stmt.executeQuery(query);
 			rs.next();
 			totalCount = rs.getInt(1);
 		} catch(Exception e) {
 			System.out.println("게시물 수를 구하는 중 예외 발생");
 			System.out.println(e.getMessage());
+		}finally {
+				try {
+					if(stmt != null)
+						stmt.close();
+					if(rs != null)
+						rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}
 		
 		return totalCount;
@@ -44,9 +55,11 @@ public class BoardDAO extends JDBConnect {
 			query += " where " + map.get("searchField") + " like '%" + map.get("searchWord") + "%' order by num desc";
 		}
 		
+		Statement stmt = null;
+		ResultSet rs = null;
 		try {
-			Statement stmt = getCon().createStatement();
-			ResultSet rs = stmt.executeQuery(query);
+			stmt = getCon().createStatement();
+			rs = stmt.executeQuery(query);
 			
 			while(rs.next()) {
 				BoardDTO dto = new BoardDTO();
@@ -61,11 +74,18 @@ public class BoardDAO extends JDBConnect {
 				bbs.add(dto);
 			}
 			
-			rs.close();
-			stmt.close();
 		} catch(Exception e) {
 			System.out.println("게시물 조회 중 예외 발생");
 			System.out.println(e.getMessage());
+		}finally {
+			try {
+				if(stmt!=null)
+					stmt.close();
+				if(rs!=null)
+					rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return bbs;
@@ -82,11 +102,13 @@ public class BoardDAO extends JDBConnect {
 
 		query += " order by num asc limit ?, ?";
 		
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
 		try {
-			PreparedStatement psmt = getCon().prepareStatement(query);
+			psmt = getCon().prepareStatement(query);
 			psmt.setInt(1, (int)map.get("start"));
 			psmt.setInt(2, (int)map.get("pageSize"));
-			ResultSet rs = psmt.executeQuery();
+			rs = psmt.executeQuery();
 			while(rs.next()) {
 				BoardDTO dto = new BoardDTO();
 				dto.setNum(rs.getString("num"));
@@ -101,6 +123,15 @@ public class BoardDAO extends JDBConnect {
 		} catch(Exception e) {
 			System.out.println("게시물 조회 중 예외 발생");
 			System.out.println(e.getMessage());
+		}finally {
+			try {
+				if(psmt!=null)
+					psmt.close();
+				if(rs!=null)
+					rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return bbs;
@@ -109,10 +140,10 @@ public class BoardDAO extends JDBConnect {
 	public int insertWrite(BoardDTO dto) {
 		int result = 0;
 		
+		String query = "insert into board (title, content, id, visitcount) values (?, ?, ?, 0)";
+		PreparedStatement psmt = null;
 		try {
-			String query = "insert into board (title, content, id, visitcount) values (?, ?, ?, 0)";
-			
-			PreparedStatement psmt = getCon().prepareStatement(query);
+			psmt = getCon().prepareStatement(query);
 			psmt.setString(1, dto.getTitle());
 			psmt.setString(2, dto.getContent());
 			psmt.setString(3, dto.getId());
@@ -122,6 +153,13 @@ public class BoardDAO extends JDBConnect {
 		} catch (Exception e) {
 			System.out.println("게시물 입력 중 예외 발생");
 			System.out.println(e.getMessage());
+		}finally {
+			try {
+				if(psmt!=null)
+					psmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return result;
@@ -132,10 +170,12 @@ public class BoardDAO extends JDBConnect {
 		
 		String query = "select b.*, m.name from member m inner join board b on m.id=b.id where num = ?";
 		
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
 		try {
-			PreparedStatement psmt = getCon().prepareStatement(query);
+			psmt = getCon().prepareStatement(query);
 			psmt.setString(1, num);
-			ResultSet rs = psmt.executeQuery();
+			rs = psmt.executeQuery();
 			
 			if (rs.next()) {
 				dto.setNum(rs.getString(1));
@@ -151,6 +191,15 @@ public class BoardDAO extends JDBConnect {
 		} catch(Exception e) {
 			System.out.println("게시물 상세보기 중 예외 발생");
 			System.out.println(e.getMessage());
+		}finally {
+				try {
+					if (psmt != null)
+						psmt.close();
+					if (rs != null)
+						rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}
 		
 		return dto;
